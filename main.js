@@ -38,6 +38,7 @@ var getCS = function (bytes) {
       cs ++;
     }
   }
+  cs --;
   var cs2 = bytes[bytes.length-1];
   if (cs != cs2) {
     console.log("Checksum does not match!");
