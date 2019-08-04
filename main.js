@@ -38,6 +38,11 @@ var getCS = function (bytes) {
       cs ++;
     }
   }
+  var cs2 = bytes[bytes.length-1];
+  if (cs != cs2) {
+    console.log("Checksum does not match!");
+    console.log(cs + " != " + cs2);
+  }
   return cs & 0xFF;
 };
 var debPass = function (password) {
