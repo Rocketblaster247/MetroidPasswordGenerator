@@ -20,7 +20,11 @@ var getShift = function (bytes) {
 var toBin = function (dec) {
   return (dec >>> 0).toString(2);
 };
-
+var printBytesBin = function (bytes) {
+  for (var i = 0; i < bytes.length; i ++) {
+    console.log(toBin(bytes[i]));
+  }
+};
 /*
 Bit 0: Maru Mari Taken
   Bit 1: Missile Container (Brinstar)
