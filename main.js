@@ -3,8 +3,6 @@ abc[0xFF] = " ";
 var getVal = function (char) {
   return abc.indexOf(char);
 };
-var bytes = new Array(24);
-var password = "00000000000Z00000000000Z";
 var decode = function (password) {
   var bytes = new Array(24);
   var p = password.toString();
@@ -13,7 +11,6 @@ var decode = function (password) {
   }
   return bytes;
 };
-bytes = decode(password);
 var getShift = function (bytes) {
   return bytes[16];
 };
@@ -25,6 +22,17 @@ var printBytesBin = function (bytes) {
     console.log(toBin(bytes[i]));
   }
 };
+var debPass = function (password) {
+  var bytes = new Array(24);
+  bytes = decode(password);
+  console.log("-Password-");
+  console.log(password);
+  console.log("-Binary-");
+  printBytesBin(bytes);
+  console.log("-Shift-");
+  console.log(getShift(bytes));
+};
+
 /*
 Bit 0: Maru Mari Taken
   Bit 1: Missile Container (Brinstar)
