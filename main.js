@@ -1,68 +1,72 @@
 var abc = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz?-".toString();
 abc[0xFF] = " ";
-var getVal = function (char) {
-  return abc.indexOf(char);
+var getBin = function (v) {
+  return v.toString(2);
 };
-var decode = function (password) {
-  var bytes = new Array(24);
-  var p = password.toString();
-  for (var i = 0; i < p.length; i ++) {
-    bytes[i] = getVal(p[i]);
-  }
-  return bytes;
+24 * 6
+var x = 0;
+var bits = [
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, /*Shift*/0, 0,
+  0, 0, 0, 0, /*CS*/0, 0,
+  0, 0, 0, 0, 0, 0,
+  
+];
+var getChar = function (x) {
+  return abc.toString()[parseInt(x, 2)];
 };
-var getShift = function (bytes) {
-  return bytes[16];
-};
-var toBin = function (dec) {
-  var x = (dec >>> 0).toString(2);
-  var y = "";
-  for (var i = 0; i < 8 - x.length; i ++) {
-    y += "0";
-  }
-  return y + x;
-};
-var printBytesBin = function (bytes) {
-  for (var i = 0; i < bytes.length; i ++) {
-    console.log(toBin(bytes[i]));
-  }
-};
-var getCS = function (bytes) {
-  cs = 0;
-  var s = '';
-  for (var i = 0; i < bytes.length; i ++) {
-    s += toBin(bytes[i]);
-  }
-  for (var i = 0; i < 135; i ++) {
-    if (s.toString()[i] == "1") {
-      cs ++;
+var setByte = function (x, y) {
+  for (var i = 0; i < y.toString().length; i ++) {
+    if (y.toString()[i] == "1") {
+      bits[x + i] = 1;
+    } else {
+      bits[x + i] = 0;
     }
   }
-  cs --;
-  var cs2 = bytes[bytes.length-1];
-  if (cs != cs2) {
-    console.log("Checksum does not match!");
-    console.log(cs + " != " + cs2);
+};
+var formatCS = function () {
+  cs ++;
+  for (var i = 0; i < 136; i ++) {
+    cs += bits[i];
   }
-  return cs & 0xFF;
+  setByte(136, getBin(cs));
 };
-var debPass = function (password) {
-  var bytes = new Array(24);
-  bytes = decode(password);
-  console.log("-Password-");
-  console.log(password);
-  console.log("-Binary-");
-  printBytesBin(bytes);
-  console.log("-Shift-");
-  console.log(getShift(bytes));
-  console.log("-Bytes-");
-  console.log(bytes);
-  console.log("-CheckSum-");
-  console.log(getCS(bytes));
+formatCS();
+var printPassword =  function () {
+  formatCS();
+  for (var i = 0; i < bits.length; i += 6) {
+    var code = "";
+    for (var e = 0; e < 6; e ++) {
+      code += bits[i+e].toString();
+    }
+    console.log(getChar(code));
+  }
 };
-
 /*
-Bit 0: Maru Mari Taken
+  Bit 0: Maru Mari Taken
   Bit 1: Missile Container (Brinstar)
   Bit 2: Red Door (Long Beam)
   Bit 3: Red Door (Tourian Bridge)
