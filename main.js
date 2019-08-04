@@ -33,7 +33,7 @@ var getCS = function (bytes) {
   for (var i = 0; i < bytes.length; i ++) {
     s += toBin(bytes[i]);
   }
-  for (var i = 0; i < 136; i ++) {
+  for (var i = 0; i < 135; i ++) {
     if (s.toString()[i] == "1") {
       cs ++;
     }
