@@ -48,7 +48,7 @@ var setByte = function (x, y) {
   }
 };
 var formatCS = function () {
-  cs ++;
+  var cs = 0;
   for (var i = 0; i < 136; i ++) {
     cs += bits[i];
   }
