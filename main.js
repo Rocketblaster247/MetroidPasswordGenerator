@@ -15,12 +15,30 @@ var getShift = function (bytes) {
   return bytes[16];
 };
 var toBin = function (dec) {
-  return (dec >>> 0).toString(2);
+  var x = (dec >>> 0).toString(2);
+  var y = "";
+  for (var i = 0; i < 8 - x.length; i ++) {
+    y += "0";
+  }
+  return y + x;
 };
 var printBytesBin = function (bytes) {
   for (var i = 0; i < bytes.length; i ++) {
     console.log(toBin(bytes[i]));
   }
+};
+var getCS = function (bytes) {
+  cs = 0;
+  var s = '';
+  for (var i = 0; i < bytes.length; i ++) {
+    s += toBin(bytes[i]);
+  }
+  for (var i = 0; i < 136; i ++) {
+    if (s.toString()[i] == "1") {
+      cs ++;
+    }
+  }
+  return cs & 0xFF;
 };
 var debPass = function (password) {
   var bytes = new Array(24);
@@ -31,6 +49,10 @@ var debPass = function (password) {
   printBytesBin(bytes);
   console.log("-Shift-");
   console.log(getShift(bytes));
+  console.log("-Bytes-");
+  console.log(bytes);
+  console.log("-CheckSum-");
+  console.log(getCS(bytes));
 };
 
 /*
