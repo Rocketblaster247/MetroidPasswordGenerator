@@ -56,7 +56,7 @@ var formatCS = function () {
   for (var i = 0; i < 136; i ++) {
     cs += bits[i];
   }
-  setByte(137, getBin(cs));
+  setByte(bits.length-8, getBin(cs));
 };
 formatCS();
 var printPassword =  function () {
