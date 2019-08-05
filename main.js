@@ -5,7 +5,9 @@ var getBin = function (v) {
 };
 24 * 6
 var x = 0;
-var bits = [
+var disPassword = function (bits) {
+  
+var bits = bits || [
   1, 1, 1, 1, 1, 1,
   1, 1, 1, 1, 1, 1,
   1, 1, 1, 1, 1, 1,
@@ -59,11 +61,15 @@ var formatCS = function () {
 formatCS();
 var printPassword =  function () {
   formatCS();
+  var p = "";
   for (var i = 0; i < bits.length; i += 6) {
     var code = "";
     for (var e = 0; e < 6; e ++) {
       code += bits[i+e].toString();
     }
-    console.log(getChar(code));
+    p += (getChar(code));
   }
+  console.log(p);
+};
+printPassword();
 };
