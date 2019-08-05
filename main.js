@@ -8,11 +8,23 @@ var x = 0;
 var disPassword = function (bits) {
   
 var bits = bits || [
-  1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1,
+  1,    // Maru Mari Taken
+  1,    // Brinstar Missle Container
+  1, 1,                   // Red Door
+  1, 1,
+  1,                      // Brinstar Energy Tank
+  1,                      // Red Door 
+  1,                      // Bombs Taken
+  1,                      // Red Door
+  1,                      // Brinstar Missle Container
+  1,                      // Brinstar Energy Tank
+  1,                      // Red Door
+  1,                      // Varia Taken
+  1,                      // Brinstar Energy Tank
+  1, 1,                   // Norfair Missle Container
+  1,                      // Red Door
+  1, 1, 1, 1, 1, 1, 1,    // Norfair Missle Container
+  1, 1, 1, 1, 1,
   1, 1, 1, 1, 1, 1,
   
   1, 1, 1, 1, 1, 1,
@@ -39,6 +51,7 @@ var bits = bits || [
   0, 0, 0, 0, 0, 0,
   
 ];
+console.log(bits);
 var getChar = function (x) {
   return abc.toString()[parseInt(x, 2)];
 };
@@ -56,6 +69,7 @@ var formatCS = function () {
   for (var i = 0; i < 136; i ++) {
     cs += bits[i];
   }
+  console.log(cs);
   setByte(bits.length-8, getBin(cs));
 };
 formatCS();
